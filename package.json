@@ -1,0 +1,52 @@
+{
+  "name": "@seriphxyz/solid",
+  "version": "0.1.11",
+  "description": "SolidJS primitives for Seriph widgets (forms, comments, reactions, subscriptions)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seriphxyz/solid.git"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  },
+  "homepage": "https://seriph.xyz",
+  "author": "Tim Marks <tim@imothee.xyz>",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "keywords": [
+    "solid",
+    "solidjs",
+    "seriph",
+    "forms",
+    "comments",
+    "reactions",
+    "subscribe",
+    "primitives"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@seriphxyz/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "solid-js": "^1.8.0"
+  },
+  "devDependencies": {
+    "solid-js": "^1.9.0",
+    "typescript": "^5.7.3"
+  }
+}
