@@ -1,9 +1,9 @@
 /**
- * @seriphxyz/solid - SolidJS primitives for Seriph widgets
+ * @jamwidgets/solid - SolidJS primitives for Jamwidgets
  *
  * @example Subscribe form
  * ```tsx
- * import { createSubscribe } from '@seriphxyz/solid';
+ * import { createSubscribe } from '@jamwidgets/solid';
  *
  * function Newsletter() {
  *   const { subscribe, status, error } = createSubscribe({
@@ -30,9 +30,9 @@
  * ```
  */
 import { createSignal, createEffect, onCleanup } from "solid-js";
-import { SubscribeController, FormController, ReactionsController, CommentsController, WaitlistController, ViewCountsController, FeedbackController, PollController, AnnouncementsController, resolveConfig, } from "@seriphxyz/core";
+import { SubscribeController, FormController, ReactionsController, CommentsController, WaitlistController, ViewCountsController, FeedbackController, PollController, AnnouncementsController, resolveConfig, } from "@jamwidgets/core";
 // Re-export API functions and helpers from core
-export { fetchPosts, fetchPost, getConfigFromMeta, resolveConfig, DEFAULT_ENDPOINT, API_PATH, } from "@seriphxyz/core";
+export { fetchPosts, fetchPost, getConfigFromMeta, resolveConfig, DEFAULT_ENDPOINT, API_PATH, } from "@jamwidgets/core";
 /**
  * Primitive for handling email subscriptions.
  *
@@ -42,7 +42,7 @@ export { fetchPosts, fetchPost, getConfigFromMeta, resolveConfig, DEFAULT_ENDPOI
  * const { subscribe, status } = createSubscribe({ siteKey: 'your-key' });
  *
  * // Or with meta tag (add to document head):
- * // <meta name="seriph-site-key" content="your-key" />
+ * // <meta name="jamwidgets-site-key" content="your-key" />
  * const { subscribe, status } = createSubscribe({});
  * ```
  */
@@ -314,7 +314,7 @@ export function createFeedback(options) {
  *
  * @example
  * ```tsx
- * // With meta tag: <meta name="seriph-site-key" content="your-key" />
+ * // With meta tag: <meta name="jamwidgets-site-key" content="your-key" />
  * const { poll, vote, hasVoted } = createPoll({ slug: 'favorite-framework' });
  *
  * <Show when={poll()}>
@@ -365,7 +365,7 @@ export function createPoll(options) {
  *
  * @example
  * ```tsx
- * // With meta tag: <meta name="seriph-site-key" content="your-key" />
+ * // With meta tag: <meta name="jamwidgets-site-key" content="your-key" />
  * const { announcements, dismiss } = createAnnouncements({});
  *
  * <For each={announcements()}>

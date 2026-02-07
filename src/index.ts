@@ -1,9 +1,9 @@
 /**
- * @seriphxyz/solid - SolidJS primitives for Seriph widgets
+ * @jamwidgets/solid - SolidJS primitives for Jamwidgets
  *
  * @example Subscribe form
  * ```tsx
- * import { createSubscribe } from '@seriphxyz/solid';
+ * import { createSubscribe } from '@jamwidgets/solid';
  *
  * function Newsletter() {
  *   const { subscribe, status, error } = createSubscribe({
@@ -42,17 +42,26 @@ import {
   PollController,
   AnnouncementsController,
   resolveConfig,
-  type SeriphConfig,
+  type JamWidgetsConfig,
+  type SubscribeState,
+  type FormState,
+  type ReactionsState,
+  type CommentsState,
+  type WaitlistState,
+  type ViewCountsState,
+  type FeedbackState,
+  type PollState,
+  type AnnouncementsState,
   type Comment,
   type Announcement,
   type PollWithResults,
   type FeedbackType,
   type ControllerStatus,
-} from "@seriphxyz/core";
+} from "@jamwidgets/core";
 
 // Re-export types from core
 export type {
-  SeriphConfig,
+  JamWidgetsConfig,
   SubscribeState,
   FormState,
   ReactionsState,
@@ -67,11 +76,12 @@ export type {
   PollWithResults,
   FeedbackType,
   ReactionCounts,
-  SeriphPost,
+  JamwidgetsPost,
+  SeriphPost, // deprecated alias
   FetchPostsOptions,
   FetchPostOptions,
   ControllerStatus,
-} from "@seriphxyz/core";
+} from "@jamwidgets/core";
 
 // Re-export API functions and helpers from core
 export {
@@ -81,14 +91,14 @@ export {
   resolveConfig,
   DEFAULT_ENDPOINT,
   API_PATH,
-} from "@seriphxyz/core";
+} from "@jamwidgets/core";
 
 // =============================================================================
 // Config types - siteKey is optional when using meta tag fallback
 // =============================================================================
 
-type OptionalSiteKey<T extends SeriphConfig> = Omit<T, "siteKey"> & {
-  /** Site key - optional if <meta name="seriph-site-key"> is set */
+type OptionalSiteKey<T extends JamWidgetsConfig> = Omit<T, "siteKey"> & {
+  /** Site key - optional if <meta name="jamwidgets-site-key"> is set */
   siteKey?: string;
 };
 
@@ -96,7 +106,7 @@ type OptionalSiteKey<T extends SeriphConfig> = Omit<T, "siteKey"> & {
 // createSubscribe
 // ============================================================================
 
-export interface CreateSubscribeOptions extends OptionalSiteKey<SeriphConfig> {}
+export interface CreateSubscribeOptions extends OptionalSiteKey<JamWidgetsConfig> {}
 
 export interface CreateSubscribeReturn {
   status: Accessor<ControllerStatus>;
@@ -115,7 +125,7 @@ export interface CreateSubscribeReturn {
  * const { subscribe, status } = createSubscribe({ siteKey: 'your-key' });
  *
  * // Or with meta tag (add to document head):
- * // <meta name="seriph-site-key" content="your-key" />
+ * // <meta name="jamwidgets-site-key" content="your-key" />
  * const { subscribe, status } = createSubscribe({});
  * ```
  */
@@ -128,7 +138,7 @@ export function createSubscribe(options: CreateSubscribeOptions): CreateSubscrib
   const controller = new SubscribeController(config);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: SubscribeState) => {
       setStatus(state.status);
       setMessage(state.message);
       setError(state.error);
@@ -152,7 +162,7 @@ export function createSubscribe(options: CreateSubscribeOptions): CreateSubscrib
 // createForm
 // ============================================================================
 
-export interface CreateFormOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateFormOptions extends OptionalSiteKey<JamWidgetsConfig> {
   /** Form slug/identifier */
   formSlug: string;
 }
@@ -191,7 +201,7 @@ export function createForm(options: CreateFormOptions): CreateFormReturn {
   const controller = new FormController(config, options.formSlug);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: FormState) => {
       setStatus(state.status);
       setMessage(state.message);
       setError(state.error);
@@ -215,7 +225,7 @@ export function createForm(options: CreateFormOptions): CreateFormReturn {
 // createReactions
 // ============================================================================
 
-export interface CreateReactionsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateReactionsOptions extends OptionalSiteKey<JamWidgetsConfig> {
   /** Content identifier (e.g., post slug) */
   contentId: string;
   /** Auto-fetch reactions on mount (default: true) */
@@ -256,7 +266,7 @@ export function createReactions(options: CreateReactionsOptions): CreateReaction
   const controller = new ReactionsController(config, options.contentId);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: ReactionsState) => {
       setCounts(state.counts);
       setUserReactions(state.userReactions);
       setStatus(state.status);
@@ -290,7 +300,7 @@ export function createReactions(options: CreateReactionsOptions): CreateReaction
 // createComments
 // ============================================================================
 
-export interface CreateCommentsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateCommentsOptions extends OptionalSiteKey<JamWidgetsConfig> {
   /** Content identifier (e.g., post slug) */
   contentId: string;
   /** Auto-fetch comments on mount (default: true) */
@@ -336,7 +346,7 @@ export function createComments(options: CreateCommentsOptions): CreateCommentsRe
   const controller = new CommentsController(config, options.contentId);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: CommentsState) => {
       setComments(state.comments);
       setStatus(state.status);
       setError(state.error);
@@ -365,7 +375,7 @@ export function createComments(options: CreateCommentsOptions): CreateCommentsRe
 // createWaitlist
 // ============================================================================
 
-export interface CreateWaitlistOptions extends OptionalSiteKey<SeriphConfig> {}
+export interface CreateWaitlistOptions extends OptionalSiteKey<JamWidgetsConfig> {}
 
 export interface CreateWaitlistReturn {
   status: Accessor<ControllerStatus>;
@@ -397,7 +407,7 @@ export function createWaitlist(options: CreateWaitlistOptions): CreateWaitlistRe
   const controller = new WaitlistController(config);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: WaitlistState) => {
       setStatus(state.status);
       setMessage(state.message);
       setPosition(state.position);
@@ -422,7 +432,7 @@ export function createWaitlist(options: CreateWaitlistOptions): CreateWaitlistRe
 // createViews
 // ============================================================================
 
-export interface CreateViewsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateViewsOptions extends OptionalSiteKey<JamWidgetsConfig> {
   /** Page identifier (e.g., slug or URL path) */
   pageId: string;
   /** Auto-record view on mount (default: true) */
@@ -460,7 +470,7 @@ export function createViews(options: CreateViewsOptions): CreateViewsReturn {
   const controller = new ViewCountsController(config, options.pageId);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: ViewCountsState) => {
       setViews(state.views);
       setUniqueVisitors(state.uniqueVisitors);
       setStatus(state.status);
@@ -490,7 +500,7 @@ export function createViews(options: CreateViewsOptions): CreateViewsReturn {
 // createFeedback
 // ============================================================================
 
-export interface CreateFeedbackOptions extends OptionalSiteKey<SeriphConfig> {}
+export interface CreateFeedbackOptions extends OptionalSiteKey<JamWidgetsConfig> {}
 
 export interface CreateFeedbackReturn {
   status: Accessor<ControllerStatus>;
@@ -521,7 +531,7 @@ export function createFeedback(options: CreateFeedbackOptions): CreateFeedbackRe
   const controller = new FeedbackController(config);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: FeedbackState) => {
       setStatus(state.status);
       setMessage(state.message);
       setError(state.error);
@@ -545,7 +555,7 @@ export function createFeedback(options: CreateFeedbackOptions): CreateFeedbackRe
 // createPoll
 // ============================================================================
 
-export interface CreatePollOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreatePollOptions extends OptionalSiteKey<JamWidgetsConfig> {
   /** Poll slug */
   slug: string;
   /** Auto-fetch poll on mount (default: true) */
@@ -566,7 +576,7 @@ export interface CreatePollReturn {
  *
  * @example
  * ```tsx
- * // With meta tag: <meta name="seriph-site-key" content="your-key" />
+ * // With meta tag: <meta name="jamwidgets-site-key" content="your-key" />
  * const { poll, vote, hasVoted } = createPoll({ slug: 'favorite-framework' });
  *
  * <Show when={poll()}>
@@ -594,7 +604,7 @@ export function createPoll(options: CreatePollOptions): CreatePollReturn {
   const controller = new PollController(config, options.slug);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: PollState) => {
       setPoll(state.poll);
       setStatus(state.status);
       setError(state.error);
@@ -625,7 +635,7 @@ export function createPoll(options: CreatePollOptions): CreatePollReturn {
 // createAnnouncements
 // ============================================================================
 
-export interface CreateAnnouncementsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateAnnouncementsOptions extends OptionalSiteKey<JamWidgetsConfig> {
   /** Auto-fetch announcements on mount (default: true) */
   autoFetch?: boolean;
 }
@@ -643,7 +653,7 @@ export interface CreateAnnouncementsReturn {
  *
  * @example
  * ```tsx
- * // With meta tag: <meta name="seriph-site-key" content="your-key" />
+ * // With meta tag: <meta name="jamwidgets-site-key" content="your-key" />
  * const { announcements, dismiss } = createAnnouncements({});
  *
  * <For each={announcements()}>
@@ -667,7 +677,7 @@ export function createAnnouncements(options: CreateAnnouncementsOptions): Create
   const controller = new AnnouncementsController(config);
 
   createEffect(() => {
-    const unsubscribe = controller.subscribe((state) => {
+    const unsubscribe = controller.subscribe((state: AnnouncementsState) => {
       // Only show non-dismissed announcements
       setAnnouncements(controller.getVisibleAnnouncements());
       setStatus(state.status);

@@ -1,16 +1,15 @@
 {
-  "name": "@seriphxyz/solid",
-  "version": "0.1.11",
-  "description": "SolidJS primitives for Seriph widgets (forms, comments, reactions, subscriptions)",
+  "name": "@jamwidgets/solid",
+  "version": "0.1.1",
+  "description": "SolidJS primitives for Jamwidgets (forms, comments, reactions, subscriptions)",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seriphxyz/solid.git"
+    "url": "git+https://github.com/jamwidgets/solid.git"
   },
   "publishConfig": {
-    "access": "public",
-    "provenance": true
+    "access": "public"
   },
-  "homepage": "https://seriph.xyz",
+  "homepage": "https://jamwidgets.com",
   "author": "Tim Marks <tim@imothee.xyz>",
   "type": "module",
   "main": "./dist/index.js",
@@ -31,7 +30,7 @@
   "keywords": [
     "solid",
     "solidjs",
-    "seriph",
+    "jamwidgets",
     "forms",
     "comments",
     "reactions",
@@ -40,7 +39,7 @@
   ],
   "license": "MIT",
   "dependencies": {
-    "@seriphxyz/core": "workspace:*"
+    "@jamwidgets/core": "workspace:*"
   },
   "peerDependencies": {
     "solid-js": "^1.8.0"

@@ -1,9 +1,9 @@
 /**
- * @seriphxyz/solid - SolidJS primitives for Seriph widgets
+ * @jamwidgets/solid - SolidJS primitives for Jamwidgets
  *
  * @example Subscribe form
  * ```tsx
- * import { createSubscribe } from '@seriphxyz/solid';
+ * import { createSubscribe } from '@jamwidgets/solid';
  *
  * function Newsletter() {
  *   const { subscribe, status, error } = createSubscribe({
@@ -30,14 +30,15 @@
  * ```
  */
 import { type Accessor } from "solid-js";
-import { type SeriphConfig, type Comment, type Announcement, type PollWithResults, type FeedbackType, type ControllerStatus } from "@seriphxyz/core";
-export type { SeriphConfig, SubscribeState, FormState, ReactionsState, CommentsState, WaitlistState, ViewCountsState, FeedbackState, PollState, AnnouncementsState, Comment, Announcement, PollWithResults, FeedbackType, ReactionCounts, SeriphPost, FetchPostsOptions, FetchPostOptions, ControllerStatus, } from "@seriphxyz/core";
-export { fetchPosts, fetchPost, getConfigFromMeta, resolveConfig, DEFAULT_ENDPOINT, API_PATH, } from "@seriphxyz/core";
-type OptionalSiteKey<T extends SeriphConfig> = Omit<T, "siteKey"> & {
-    /** Site key - optional if <meta name="seriph-site-key"> is set */
+import { type JamWidgetsConfig, type Comment, type Announcement, type PollWithResults, type FeedbackType, type ControllerStatus } from "@jamwidgets/core";
+export type { JamWidgetsConfig, SubscribeState, FormState, ReactionsState, CommentsState, WaitlistState, ViewCountsState, FeedbackState, PollState, AnnouncementsState, Comment, Announcement, PollWithResults, FeedbackType, ReactionCounts, JamwidgetsPost, SeriphPost, // deprecated alias
+FetchPostsOptions, FetchPostOptions, ControllerStatus, } from "@jamwidgets/core";
+export { fetchPosts, fetchPost, getConfigFromMeta, resolveConfig, DEFAULT_ENDPOINT, API_PATH, } from "@jamwidgets/core";
+type OptionalSiteKey<T extends JamWidgetsConfig> = Omit<T, "siteKey"> & {
+    /** Site key - optional if <meta name="jamwidgets-site-key"> is set */
     siteKey?: string;
 };
-export interface CreateSubscribeOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateSubscribeOptions extends OptionalSiteKey<JamWidgetsConfig> {
 }
 export interface CreateSubscribeReturn {
     status: Accessor<ControllerStatus>;
@@ -55,12 +56,12 @@ export interface CreateSubscribeReturn {
  * const { subscribe, status } = createSubscribe({ siteKey: 'your-key' });
  *
  * // Or with meta tag (add to document head):
- * // <meta name="seriph-site-key" content="your-key" />
+ * // <meta name="jamwidgets-site-key" content="your-key" />
  * const { subscribe, status } = createSubscribe({});
  * ```
  */
 export declare function createSubscribe(options: CreateSubscribeOptions): CreateSubscribeReturn;
-export interface CreateFormOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateFormOptions extends OptionalSiteKey<JamWidgetsConfig> {
     /** Form slug/identifier */
     formSlug: string;
 }
@@ -89,7 +90,7 @@ export interface CreateFormReturn {
  * ```
  */
 export declare function createForm(options: CreateFormOptions): CreateFormReturn;
-export interface CreateReactionsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateReactionsOptions extends OptionalSiteKey<JamWidgetsConfig> {
     /** Content identifier (e.g., post slug) */
     contentId: string;
     /** Auto-fetch reactions on mount (default: true) */
@@ -119,7 +120,7 @@ export interface CreateReactionsReturn {
  * ```
  */
 export declare function createReactions(options: CreateReactionsOptions): CreateReactionsReturn;
-export interface CreateCommentsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateCommentsOptions extends OptionalSiteKey<JamWidgetsConfig> {
     /** Content identifier (e.g., post slug) */
     contentId: string;
     /** Auto-fetch comments on mount (default: true) */
@@ -158,7 +159,7 @@ export interface CreateCommentsReturn {
  * ```
  */
 export declare function createComments(options: CreateCommentsOptions): CreateCommentsReturn;
-export interface CreateWaitlistOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateWaitlistOptions extends OptionalSiteKey<JamWidgetsConfig> {
 }
 export interface CreateWaitlistReturn {
     status: Accessor<ControllerStatus>;
@@ -183,7 +184,7 @@ export interface CreateWaitlistReturn {
  * ```
  */
 export declare function createWaitlist(options: CreateWaitlistOptions): CreateWaitlistReturn;
-export interface CreateViewsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateViewsOptions extends OptionalSiteKey<JamWidgetsConfig> {
     /** Page identifier (e.g., slug or URL path) */
     pageId: string;
     /** Auto-record view on mount (default: true) */
@@ -210,7 +211,7 @@ export interface CreateViewsReturn {
  * ```
  */
 export declare function createViews(options: CreateViewsOptions): CreateViewsReturn;
-export interface CreateFeedbackOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateFeedbackOptions extends OptionalSiteKey<JamWidgetsConfig> {
 }
 export interface CreateFeedbackReturn {
     status: Accessor<ControllerStatus>;
@@ -235,7 +236,7 @@ export interface CreateFeedbackReturn {
  * ```
  */
 export declare function createFeedback(options: CreateFeedbackOptions): CreateFeedbackReturn;
-export interface CreatePollOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreatePollOptions extends OptionalSiteKey<JamWidgetsConfig> {
     /** Poll slug */
     slug: string;
     /** Auto-fetch poll on mount (default: true) */
@@ -254,7 +255,7 @@ export interface CreatePollReturn {
  *
  * @example
  * ```tsx
- * // With meta tag: <meta name="seriph-site-key" content="your-key" />
+ * // With meta tag: <meta name="jamwidgets-site-key" content="your-key" />
  * const { poll, vote, hasVoted } = createPoll({ slug: 'favorite-framework' });
  *
  * <Show when={poll()}>
@@ -274,7 +275,7 @@ export interface CreatePollReturn {
  * ```
  */
 export declare function createPoll(options: CreatePollOptions): CreatePollReturn;
-export interface CreateAnnouncementsOptions extends OptionalSiteKey<SeriphConfig> {
+export interface CreateAnnouncementsOptions extends OptionalSiteKey<JamWidgetsConfig> {
     /** Auto-fetch announcements on mount (default: true) */
     autoFetch?: boolean;
 }
@@ -290,7 +291,7 @@ export interface CreateAnnouncementsReturn {
  *
  * @example
  * ```tsx
- * // With meta tag: <meta name="seriph-site-key" content="your-key" />
+ * // With meta tag: <meta name="jamwidgets-site-key" content="your-key" />
  * const { announcements, dismiss } = createAnnouncements({});
  *
  * <For each={announcements()}>

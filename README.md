@@ -1,14 +1,14 @@
-# @seriphxyz/solid
+# @jamwidgets/solid
 
 > **Note:** This repo is a read-only mirror. Source lives in a private monorepo.
 > For issues/PRs, please open them here and we'll sync changes back.
 
-SolidJS primitives for [Seriph](https://seriph.xyz) widgets - comments, reactions, forms, subscriptions, and more.
+SolidJS primitives for [JamWidgets](https://jamwidgets.com) widgets - comments, reactions, forms, subscriptions, and more.
 
 ## Installation
 
 ```bash
-npm install @seriphxyz/solid
+npm install @jamwidgets/solid
 ```
 
 Works with SolidJS 1.8+. Compatible with SolidStart, Astro, and standalone apps.
@@ -20,7 +20,7 @@ Works with SolidJS 1.8+. Compatible with SolidStart, Astro, and standalone apps.
 Email subscription form:
 
 ```tsx
-import { createSubscribe } from "@seriphxyz/solid";
+import { createSubscribe } from "@jamwidgets/solid";
 
 function SubscribeForm() {
   const [email, setEmail] = createSignal("");
@@ -60,7 +60,7 @@ function SubscribeForm() {
 Reaction buttons (like, love, clap, etc.):
 
 ```tsx
-import { createReactions } from "@seriphxyz/solid";
+import { createReactions } from "@jamwidgets/solid";
 
 function LikeButton() {
   const { counts, userReactions, add, remove, status } = createReactions({
@@ -83,7 +83,7 @@ function LikeButton() {
 Threaded comments:
 
 ```tsx
-import { createComments } from "@seriphxyz/solid";
+import { createComments } from "@jamwidgets/solid";
 
 function Comments() {
   const { comments, post, status, error } = createComments({
@@ -111,7 +111,7 @@ function Comments() {
 Contact forms with spam protection:
 
 ```tsx
-import { createForm } from "@seriphxyz/solid";
+import { createForm } from "@jamwidgets/solid";
 
 function ContactForm() {
   const { submit, status, message } = createForm({
@@ -143,7 +143,7 @@ function ContactForm() {
 Waitlist signups:
 
 ```tsx
-import { createWaitlist } from "@seriphxyz/solid";
+import { createWaitlist } from "@jamwidgets/solid";
 
 function WaitlistForm() {
   const { join, status, message, position } = createWaitlist({
@@ -172,7 +172,7 @@ function WaitlistForm() {
 Feedback forms:
 
 ```tsx
-import { createFeedback } from "@seriphxyz/solid";
+import { createFeedback } from "@jamwidgets/solid";
 
 function FeedbackWidget() {
   const { submit, status, message } = createFeedback({
@@ -192,7 +192,7 @@ function FeedbackWidget() {
 Polls and voting:
 
 ```tsx
-import { createPoll } from "@seriphxyz/solid";
+import { createPoll } from "@jamwidgets/solid";
 
 function Poll() {
   const { poll, vote, hasVoted, status } = createPoll({
@@ -222,7 +222,7 @@ function Poll() {
 Site announcements:
 
 ```tsx
-import { createAnnouncements } from "@seriphxyz/solid";
+import { createAnnouncements } from "@jamwidgets/solid";
 
 function AnnouncementBanner() {
   const { announcements, dismiss, status } = createAnnouncements({
@@ -251,7 +251,7 @@ function AnnouncementBanner() {
 Page view tracking:
 
 ```tsx
-import { createViewCounts } from "@seriphxyz/solid";
+import { createViewCounts } from "@jamwidgets/solid";
 import { onMount } from "solid-js";
 
 function PageViews() {
